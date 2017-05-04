@@ -4,6 +4,8 @@ An [OpenFL][1] Android extension to launch an application.
 
  Takes a package name ( which is actually Google Playstore id for that application ) and launches the application
 
+Here is [the example implementation][ExampleImp] of the extension.
+
 ### Usage
 ```
 AnAppLaunch.launchAppWithPackageName("com.rovio.angrybirds");
@@ -28,3 +30,5 @@ AnAppLaunch.launchAppWithPackageName("com.rovio.angrybirds");
 
 [4]: https://github.com/saumya/AnCam
 [5]: https://github.com/saumya/RayToast
+
+[ExampleImp]: https://github.com/saumya/OpenFL-AnExt
