@@ -1,48 +1,18 @@
 package;
 
-#if cpp
-import cpp.Lib;
-#elseif neko
-import neko.Lib;
-#end
-
-#if (android && openfl)
-import openfl.utils.JNI;
-#end
+import lime.system.JNI;
+import openfl.events.Event;
+import openfl.events.EventDispatcher;
 
 
 class AnAppLaunch {
 	
+	#if android
 	
-	public static function sampleMethod (inputValue:Int):Int {
-		
-		#if (android && openfl)
-		
-		var resultJNI = anapplaunch_sample_method_jni(inputValue);
-		var resultNative = anapplaunch_sample_method(inputValue);
-		
-		if (resultJNI != resultNative) {
-			
-			throw "Fuzzy math!";
-			
-		}
-		
-		return resultNative;
-		
-		#else
-		
-		return anapplaunch_sample_method(inputValue);
-		
-		#end
-		
+	public static function launchAppWithPackageName(packageName:String):Void{
+		anapplaunch_jni( packageName );
 	}
-	
-	
-	private static var anapplaunch_sample_method = Lib.load ("anapplaunch", "anapplaunch_sample_method", 1);
-	
-	#if (android && openfl)
-	private static var anapplaunch_sample_method_jni = JNI.createStaticMethod ("org.haxe.extension.AnAppLaunch", "sampleMethod", "(I)I");
+	private static var anapplaunch_jni = JNI.createStaticMethod ("org.haxe.extension.AnAppLaunch", "launchAppWithPackageName", "(Ljava/lang/String;)V", false);
+
 	#end
-	
-	
 }

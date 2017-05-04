@@ -9,6 +9,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+// ref: https://github.com/openfl/extension-iap/blob/master/dependencies/android/src/org/haxe/extension/iap/InAppPurchase.java
+import org.haxe.lime.HaxeObject;
+
+import java.lang.String;
+import android.util.Log;
+import android.content.pm.PackageManager;
+
 
 /* 
 	You can use the Android Extension class in order to hook
@@ -37,12 +44,23 @@ import android.view.View;
 	back to Haxe from Java.
 */
 public class AnAppLaunch extends Extension {
-	
-	
-	public static int sampleMethod (int inputValue) {
-		
-		return inputValue * 100;
-		
+
+	public static void launchAppWithPackageName(final String packageName){
+		Extension.mainActivity.runOnUiThread(new Runnable() {
+			@Override public void run() {
+				//Log.d("INFO","packageName="+packageName);
+				try {
+					Intent i;
+					PackageManager manager = Extension.mainActivity.getPackageManager();
+					i = manager.getLaunchIntentForPackage(packageName);
+					i.addCategory(Intent.CATEGORY_LAUNCHER);
+					Extension.mainActivity.startActivity(i);
+				} catch (Exception e) {
+					//Log.d("INFO",e.printStackTrace());
+					//e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	
